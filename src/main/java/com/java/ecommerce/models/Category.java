@@ -8,20 +8,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 @EqualsAndHashCode
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer id;
@@ -29,40 +30,15 @@ public class Category {
     @Column(name = "category_name")
     private @NotBlank String categoryName;
 
+    @Column(name = "description")
     private @NotBlank String description;
 
+    @Column(name = "image_url")
     private @NotBlank String imageUrl;
 
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCategoryName() {
-        return this.categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
+    public Category(@NotBlank String categoryName, @NotBlank String description) {
         this.categoryName = categoryName;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public Category(@NotBlank String categoryName, @NotBlank String description, @NotBlank String imageUrl) {

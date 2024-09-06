@@ -24,7 +24,7 @@ public class CategoryService {
     }
     
     public void editCategory(int categoryId, Category updateCategory){
-        Category category = categoryRepository.getReferenceById((int)categoryId);
+        Category category = categoryRepository.getById((int)categoryId);
         category.setCategoryName(updateCategory.getCategoryName());
         category.setDescription(updateCategory.getDescription());
         category.setImageUrl(updateCategory.getImageUrl());
