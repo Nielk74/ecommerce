@@ -46,6 +46,18 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public Optional<ProductDto> getProduct(Integer id){
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()){
+            return Optional.of(getDtoFromProduct(optionalProduct.get()));
+        }
+        return Optional.empty();
+    }
+
+    public void deleteProduct(Integer id){
+        productRepository.deleteById(id);
+    }
+
     public Optional<Product> readProduct(Integer id){
         return productRepository.findById(id);
     }
