@@ -28,15 +28,22 @@ public class AuthConfig {
                 .csrf((csrf)->csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.POST, "/auth/*").permitAll()
-
-                        // Limit creation (POST), update (PUT), and delete (DELETE) to admin for category and product
-                        .antMatchers(HttpMethod.POST, "/category/*", "/product/*").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.PUT, "/category/*", "/product/*").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/category/*", "/product/*").hasRole("ADMIN")
-
-                        // Any other request requires authentication
-                        .anyRequest().authenticated())
+                    // Public access to Swagger
+                    .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                    
+                    // Public access to GET requests
+                    .antMatchers(HttpMethod.GET, "/**").permitAll()
+                    
+                    // Admin-only access for PUT, POST, DELETE except for authentication endpoints
+                    .antMatchers(HttpMethod.POST, "/auth/**").permitAll() // Auth endpoints are public
+                    .antMatchers(HttpMethod.PUT, "/auth/**").permitAll()  // Auth endpoints are public
+                    .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+                    
+                    // Any other request requires authentication
+                    .anyRequest().authenticated()
+                )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
