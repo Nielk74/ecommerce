@@ -4,7 +4,7 @@ import com.java.ecommerce.config.auth.TokenProvider;
 import com.java.ecommerce.dto.user.JwtDto;
 import com.java.ecommerce.dto.user.SignUpDto;
 import com.java.ecommerce.models.User;
-import com.java.ecommerce.services.AuthService;
+import com.java.ecommerce.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private AuthService service;
+    private UserService service;
     @Autowired
     private TokenProvider tokenService;
 

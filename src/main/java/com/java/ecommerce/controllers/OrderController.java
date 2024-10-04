@@ -31,12 +31,12 @@ public class OrderController {
         return new ResponseEntity<List<OrderDto>>(body, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "List orders from a user", notes = "Provide username to list his orders")
-    @GetMapping("/username/{username}")
-    public ResponseEntity<List<OrderDto>> getOrdersByUsername(@PathVariable("username") String username) {
-        // TODO
-        return null;
-    }
+    // @ApiOperation(value = "List orders from a user", notes = "Provide username to list his orders")
+    // @GetMapping("/user/{userId}")
+    // public ResponseEntity<List<OrderDto>> getOrdersByUserId(@PathVariable("userId") Integer userId) {
+    //     List<OrderDto> body = orderService.
+    //     return null;
+    // }
     // @ApiOperation(value = "List orders from a user", notes = "Provide username to
     // list his orders")
     // @GetMapping("/username/{username}")

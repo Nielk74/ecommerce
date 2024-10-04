@@ -6,13 +6,16 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.java.ecommerce.enums.Role;
 import com.java.ecommerce.models.Category;
 import com.java.ecommerce.models.Order;
 import com.java.ecommerce.models.OrderItem;
 import com.java.ecommerce.models.Product;
+import com.java.ecommerce.models.User;
 import com.java.ecommerce.repositories.CategoryRepository;
 import com.java.ecommerce.repositories.OrderRepository;
 import com.java.ecommerce.repositories.ProductRepository;
+import com.java.ecommerce.repositories.UserRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -20,12 +23,14 @@ public class DataInitializer implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     private ProductRepository productRepository;
     private OrderRepository orderRepository;
+    private UserRepository userRepository;
 
     public DataInitializer(CategoryRepository categoryRepository, ProductRepository productRepository,
-            OrderRepository orderRepository) {
+            OrderRepository orderRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,6 +58,9 @@ public class DataInitializer implements CommandLineRunner {
         Order order1 = new Order();
         order1.setTotal_price(1500.00); // Example total price
 
+        User user1 = new User("antoine", "Dat", Role.ADMIN);
+        userRepository.save(user1);
+        
         Product product1 = productRepository.findByName("Laptop");
         Product product2 = productRepository.findByName("Smartphone");
         OrderItem item1 = new OrderItem();
@@ -69,7 +77,7 @@ public class DataInitializer implements CommandLineRunner {
         orderItems1.add(item1);
         orderItems1.add(item2);
         order1.setOrderItems(orderItems1);
-
+        order1.setUser(user1);
         orderRepository.save(order1);
 
     }

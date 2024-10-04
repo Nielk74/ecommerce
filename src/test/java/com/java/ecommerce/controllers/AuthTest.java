@@ -3,7 +3,7 @@ package com.java.ecommerce.controllers;
 import com.java.ecommerce.dto.user.SignInDto;
 import com.java.ecommerce.dto.user.SignUpDto;
 import com.java.ecommerce.enums.Role;
-import com.java.ecommerce.services.AuthService;
+import com.java.ecommerce.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class AuthTest {
 
 
     @Autowired
-    private AuthService authService;
+    private UserService userService;
 
 
     @BeforeEach
