@@ -19,13 +19,11 @@ public class ProductService {
 
     public List<ProductDto> listProducts(){
         List<Product> products = productRepository.findAll();
-        System.out.print(products);
         List<ProductDto> productDtos = new ArrayList<>();
         for (Product product : products){
             ProductDto productDto = getDtoFromProduct(product);
             productDtos.add(productDto);
         }
-        System.out.print(productDtos);
 
         return productDtos;
     }

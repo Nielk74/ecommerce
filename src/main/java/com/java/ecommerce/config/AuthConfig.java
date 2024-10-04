@@ -32,15 +32,18 @@ public class AuthConfig {
                     .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     
                     // Public access to GET requests
-                    .antMatchers(HttpMethod.GET, "/**").permitAll()
+                    .antMatchers(HttpMethod.GET, "/product/").permitAll()
+                    .antMatchers(HttpMethod.GET, "/category/").permitAll()
+
+
                     
-                    // Admin-only access for PUT, POST, DELETE except for authentication endpoints
-                    .antMatchers(HttpMethod.POST, "/auth/**").permitAll() // Auth endpoints are public
-                    .antMatchers(HttpMethod.PUT, "/auth/**").permitAll()  // Auth endpoints are public
-                    .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
-                    
+                    .antMatchers(HttpMethod.POST, "/auth/**").permitAll() 
+                    .antMatchers(HttpMethod.PUT, "/auth/**").permitAll() 
+            
+
+                    .antMatchers(HttpMethod.POST, "/product/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/category/**").hasRole("ADMIN")
+
                     // Any other request requires authentication
                     .anyRequest().authenticated()
                 )

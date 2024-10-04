@@ -3,7 +3,9 @@ package com.java.ecommerce;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.java.ecommerce.enums.Role;
@@ -19,19 +21,15 @@ import com.java.ecommerce.repositories.UserRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
-
+    @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private OrderRepository orderRepository;
+    @Autowired
     private UserRepository userRepository;
 
-    public DataInitializer(CategoryRepository categoryRepository, ProductRepository productRepository,
-            OrderRepository orderRepository, UserRepository userRepository) {
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-        this.orderRepository = orderRepository;
-        this.userRepository = userRepository;
-    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -58,7 +56,7 @@ public class DataInitializer implements CommandLineRunner {
         Order order1 = new Order();
         order1.setTotal_price(1500.00); // Example total price
 
-        User user1 = new User("antoine", "Dat", Role.ADMIN);
+        User user1 = new User("antoine", new BCryptPasswordEncoder().encode("antoine"), Role.ADMIN);
         userRepository.save(user1);
         
         Product product1 = productRepository.findByName("Laptop");
