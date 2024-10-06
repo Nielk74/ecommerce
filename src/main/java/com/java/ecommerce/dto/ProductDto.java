@@ -1,6 +1,6 @@
 package com.java.ecommerce.dto;
-import javax.validation.constraints.NotNull;
 
+import jakarta.validation.constraints.NotNull;
 import com.java.ecommerce.models.Product;
 
 public class ProductDto {

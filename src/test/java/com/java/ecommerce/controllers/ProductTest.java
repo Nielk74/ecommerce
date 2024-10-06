@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +20,8 @@ import com.java.ecommerce.dto.ProductDto;
 import com.java.ecommerce.repositories.CategoryRepository;
 import com.java.ecommerce.repositories.ProductRepository;
 import com.java.ecommerce.services.ProductService;
+
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @Transactional

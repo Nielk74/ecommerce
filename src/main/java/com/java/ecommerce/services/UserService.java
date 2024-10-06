@@ -1,10 +1,5 @@
 package com.java.ecommerce.services;
 
-import com.java.ecommerce.dto.UserDto;
-import com.java.ecommerce.dto.user.SignUpDto;
-import com.java.ecommerce.exceptions.InvalidJwtException;
-import com.java.ecommerce.repositories.UserRepository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,10 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.java.ecommerce.dto.UserDto;
 import com.java.ecommerce.models.User;
+import com.java.ecommerce.repositories.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -25,22 +21,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return repository.findByLogin(username);
+        return repository.findByLogin(username).orElseThrow();
     }
 
     public List<UserDto> getAllUser(){
         return repository.findAll().stream()
             .map(UserDto::new)
             .collect(Collectors.toList());
-    }
-
-    public UserDetails signUp(SignUpDto data) throws InvalidJwtException {
-        if (repository.findByLogin(data.login()) != null) {
-            throw new InvalidJwtException("Username already exists");
-        }
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.role());
-        return repository.save(newUser);
     }
 
     public Optional<User> getUserById(Integer id){

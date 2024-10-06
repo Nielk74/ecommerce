@@ -4,6 +4,9 @@ import com.java.ecommerce.dto.user.SignInDto;
 import com.java.ecommerce.dto.user.SignUpDto;
 import com.java.ecommerce.enums.Role;
 import com.java.ecommerce.services.UserService;
+
+import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import javax.transaction.Transactional;
 
 @SpringBootTest
 @Transactional
@@ -35,14 +37,14 @@ public class AuthTest {
     @Test
     public void signInNotAllowed(){
         assertThrows(AuthenticationException.class, () ->
-            authController.signIn(new SignInDto("aaa","vvvv"))
+            this.authController.authenticate(new SignInDto("aaa","vvvv"))
         );
     }
 
     @Test
     public void signInAllowed(){
-        assertEquals(authController.signUp(new SignUpDto("username","password", Role.ADMIN)).getStatusCode(), HttpStatus.CREATED);
-        assertEquals(authController.signIn(new SignInDto("username", "password")).getStatusCode(),HttpStatus.OK);
+        assertEquals(this.authController.register(new SignUpDto("username","password", Role.ADMIN)).getStatusCode(), HttpStatus.CREATED);
+        assertEquals(this.authController.authenticate(new SignInDto("username", "password")).getStatusCode(),HttpStatus.OK);
     }
 
 

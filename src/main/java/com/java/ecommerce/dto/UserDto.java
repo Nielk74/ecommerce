@@ -1,9 +1,9 @@
 package com.java.ecommerce.dto;
 
-import javax.validation.constraints.NotNull;
 import com.java.ecommerce.enums.Role;
 import com.java.ecommerce.models.User;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

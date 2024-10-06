@@ -2,7 +2,6 @@ package com.java.ecommerce.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,8 @@ import com.java.ecommerce.common.ApiResponse;
 import com.java.ecommerce.models.Category;
 import com.java.ecommerce.services.CategoryService;
 import com.java.ecommerce.utils.Helper;
+
+import jakarta.validation.Valid;
 
 
 @RestController

@@ -2,7 +2,6 @@ package com.java.ecommerce.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.java.ecommerce.models.Category;
 import com.java.ecommerce.services.CategoryService;
+
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
 @Transactional
