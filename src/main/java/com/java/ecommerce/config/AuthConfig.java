@@ -35,7 +35,7 @@ public class AuthConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disabling CSRF
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "swagger-resources").permitAll()
 
                         // Public access to GET requests
                         .requestMatchers(HttpMethod.GET, "/product/").permitAll()

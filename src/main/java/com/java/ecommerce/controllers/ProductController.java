@@ -23,7 +23,8 @@ import com.java.ecommerce.models.Category;
 import com.java.ecommerce.services.CategoryService;
 import com.java.ecommerce.services.ProductService;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+
 
 @RestController
 @RequestMapping("/product")
@@ -40,7 +41,7 @@ public class ProductController {
         return new ResponseEntity<List<ProductDto>>(body, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Add a new product", notes = "Provide product details to add a new product")
+    @Operation(summary = "Add a product", description = "")
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
