@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.java.ecommerce.dto.OrderItemDto;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +15,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 @EqualsAndHashCode
 @Table(name = "order_items")
@@ -31,5 +33,11 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     Product product;
+
+    public OrderItem(OrderItemDto orderItemDto, Product product){
+        this.price = product.getPrice();
+        this.quantity = orderItemDto.quantity();
+        this.product = product;
+    }
 
 }

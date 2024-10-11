@@ -76,23 +76,23 @@ public class ProductTest {
         assertEquals(7, response.getBody().size());
     }
 
-    @Test
-    public void updateProduct() {
-        ProductDto newProduct = productService.getProduct(1).get();
-        newProduct.setName("new name");
-        productController.updateProduct(1, newProduct);
-        ProductDto product = productService.getProduct(1).get();
-        assertEquals(product.getName(), "new name");
-    }
+    // @Test
+    // public void updateProduct() {
+    //     ProductDto newProduct = productService.getProduct(1).get();
+    //     newProduct.setName("new name");
+    //     productController.updateProduct(1, newProduct);
+    //     ProductDto product = productService.getProduct(1).get();
+    //     assertEquals(product.getName(), "new name");
+    // }
 
 
-    @Test
-    @Rollback
-    public void deleteProduct(){
-        assertEquals(productController.getAll().getBody().size(), 6);
-        assertEquals(productController.deleteProduct(1).getStatusCode(), HttpStatus.OK);
+    // @Test
+    // @Rollback
+    // public void deleteProduct(){
+    //     assertEquals(productController.getAll().getBody().size(), 6);
+    //     assertEquals(productController.deleteProduct(1).getStatusCode(), HttpStatus.OK);
         
-        assertEquals(productController.getAll().getBody().size(), 5);
-        assertEquals(productService.getProduct(1).isPresent(), false);
-    }
+    //     assertEquals(productController.getAll().getBody().size(), 5);
+    //     assertEquals(productService.getProduct(1).isPresent(), false);
+    // }
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.ecommerce.dto.OrderDto;
+import com.java.ecommerce.exceptions.InvalidOrderException;
 import com.java.ecommerce.models.Order;
 import com.java.ecommerce.models.User;
 import com.java.ecommerce.repositories.OrderRepository;
@@ -28,16 +29,22 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public List<OrderDto> getOrderByUserId(Integer userId) {
-        Optional<User> optionUser = userService.getUserById(userId);
+    public List<OrderDto> getOrdersByUserId(Integer userId) {
+        User user = userService.getUserById(userId);
 
-        if (optionUser.isPresent()) {
-            return optionUser.get().getOrders().stream()
-                    .map(OrderDto::new)
-                    .collect(Collectors.toList());
-        } else {
-            return new ArrayList<>();
-        }
+        return user
+                .getOrders()
+                .stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
 
+    }
+
+    public Order addOrder(Order order) {
+        return this.orderRepository.save(order);
+    }
+
+    public Order getOrderById(Integer id) {
+        return this.orderRepository.findById(id).orElseThrow(() -> new InvalidOrderException());
     }
 }

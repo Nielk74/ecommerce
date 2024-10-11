@@ -49,10 +49,26 @@ public class GlobalExceptionHandler {
             errorDetail.setProperty("description", "User is already registered");
         }
 
+        else if (exception instanceof InvalidProductException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+            errorDetail.setProperty("description", "Invalid product");
+        }
+
+        else if (exception instanceof InvalidUserException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+            errorDetail.setProperty("description", "Invalid user");
+        }
+
+        else if (exception instanceof InvalidOrderException) {
+            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+            errorDetail.setProperty("description", "Invalid order");
+        }
+
         else if (errorDetail == null) {
             errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
             errorDetail.setProperty("description", "Unknown internal server error.");
         }
+
 
         return errorDetail;
     }

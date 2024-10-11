@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.ecommerce.dto.ProductDto;
+import com.java.ecommerce.exceptions.InvalidProductException;
 import com.java.ecommerce.models.Category;
 import com.java.ecommerce.models.Product;
 import com.java.ecommerce.repositories.ProductRepository;
@@ -44,12 +45,8 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Optional<ProductDto> getProduct(Integer id){
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()){
-            return Optional.of(getDtoFromProduct(optionalProduct.get()));
-        }
-        return Optional.empty();
+    public Product getProductById(Integer id){
+        return productRepository.findById(id).orElseThrow(()->new InvalidProductException());
     }
 
     public void deleteProduct(Integer id){

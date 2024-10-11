@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @Operation(summary = "Add a product", description = "")
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
         if (!optionalCategory.isPresent()) {
@@ -70,8 +70,8 @@ public class ProductController {
 
     @DeleteMapping("delete/{productID}")
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable("productID") Integer productID) {
-        Optional<ProductDto> optionalProduct = productService.getProduct(productID);
-        if (!optionalProduct.isPresent()) {
+        
+        if (productService.getProductById(productID) != null) {
             return new ResponseEntity<ApiResponse>(new ApiResponse(false, "Product doesn't exist"),
                     HttpStatus.CONFLICT);
         }

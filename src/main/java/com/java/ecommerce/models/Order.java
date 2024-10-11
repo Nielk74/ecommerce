@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,12 +37,22 @@ public class Order {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     User user;
-    
 
     private double total_price;
+
+    public Order(List<OrderItem> orderItems, User user) {
+        this.orderItems = orderItems;
+        this.user = user;
+    }
+
+    public Order calculateAndSetTotalPrice() {
+        this.total_price = orderItems.stream()
+                .mapToDouble(orderItems -> orderItems.getPrice() * orderItems.getQuantity())
+                .sum();
+        return this;
+    }
 }

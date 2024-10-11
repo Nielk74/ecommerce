@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.java.ecommerce.dto.UserDto;
+import com.java.ecommerce.exceptions.InvalidUserException;
 import com.java.ecommerce.models.User;
 import com.java.ecommerce.repositories.UserRepository;
 
@@ -30,7 +31,7 @@ public class UserService implements UserDetailsService {
             .collect(Collectors.toList());
     }
 
-    public Optional<User> getUserById(Integer id){
-        return repository.findById(id);
+    public User getUserById(Integer id){
+        return repository.findById(id).orElseThrow(()-> new InvalidUserException());
     }
 }

@@ -40,14 +40,8 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("userId") Integer userId) {
-        Optional<User> optionalUser = userService.getUserById(userId);
+        return new ResponseEntity<UserDto>(new UserDto(userService.getUserById(userId)), HttpStatus.OK);
 
-        if (optionalUser.isPresent()) {
-            UserDto userDto = new UserDto(userService.getUserById(userId).get());
-            return new ResponseEntity<UserDto>(userDto, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
     }
 
     @GetMapping("/{userId}/orders")
@@ -57,7 +51,7 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
-        List<OrderDto> ordersDto = orderService.getOrderByUserId(userId);
+        List<OrderDto> ordersDto = orderService.getOrdersByUserId(userId);
         return new ResponseEntity<List<OrderDto>>(ordersDto, HttpStatus.OK);
     }
 }
