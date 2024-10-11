@@ -3,10 +3,10 @@ package com.java.ecommerce.dto;
 import com.java.ecommerce.models.OrderItem;
 
 public record OrderItemDto(
-        Integer productId,
+        ProductDto product,
         int quantity,
         double price) {
     public OrderItemDto(OrderItem orderItem) {
-        this(orderItem.getProduct().getId(), orderItem.getQuantity(), orderItem.getPrice());
+        this(new ProductDto(orderItem.getProduct()), orderItem.getQuantity(), orderItem.getPrice());
     }
 }

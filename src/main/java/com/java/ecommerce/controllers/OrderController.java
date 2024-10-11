@@ -63,21 +63,30 @@ public class OrderController {
     @PostMapping("/")
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody OrderDto orderDto) {
         User user = userService.getUserById(orderDto.user().getId());
-        
-        Order newOrder = new Order(getOrderItems(orderDto), user).calculateAndSetTotalPrice();
+
+        List<OrderItem> orderItems = this.getOrderItems(orderDto);
+
+        Order newOrder = new Order(orderItems, user)
+                .calculateAndSetTotalPrice();
 
         newOrder = orderService.addOrder(newOrder);
 
-        return new ResponseEntity<>(new ApiResponse(true, "Order has been created with id " + newOrder.getId()), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "Order has been created with id " + newOrder.getId()),
+                HttpStatus.CREATED);
     }
+
+    // parse list of order item
     private List<OrderItem> getOrderItems(OrderDto orderDto) {
-        return orderDto.orderItems().stream().map(this::getOrderItem).collect(Collectors.toList());
+        return orderDto.orderItems()
+                .stream()
+                .map(this::getOrderItem)
+                .collect(Collectors.toList());
 
     }
 
-
+    // parse ONE order item
     private OrderItem getOrderItem(OrderItemDto orderItemDto) {
-        Product product = productService.getProductById(orderItemDto.productId());
+        Product product = productService.getProductById(orderItemDto.product().getId());
         return new OrderItem(orderItemDto, product);
     }
 
