@@ -47,4 +47,8 @@ public class OrderService {
     public Order getOrderById(Integer id) {
         return this.orderRepository.findById(id).orElseThrow(() -> new InvalidOrderException());
     }
+
+    public void removeOrder(Order order) {
+        this.orderRepository.delete(order);
+    }
 }

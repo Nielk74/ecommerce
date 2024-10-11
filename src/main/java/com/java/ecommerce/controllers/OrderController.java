@@ -1,5 +1,6 @@
 package com.java.ecommerce.controllers;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 
 import com.java.ecommerce.models.Order;
@@ -90,4 +91,13 @@ public class OrderController {
         return new OrderItem(orderItemDto, product);
     }
 
+
+    @Operation(summary = "Remove an order", description = "")
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<ApiResponse> removeProduct(@PathVariable("orderId") Integer orderId){
+        Order productToDelete = orderService.getOrderById(orderId);
+        orderService.deleteOrder(productToDelete);
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Order has been removed"),
+        HttpStatus.OK);
+    }
 }
