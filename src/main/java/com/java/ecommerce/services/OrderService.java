@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.ecommerce.dto.OrderDto;
+import com.java.ecommerce.dto.OrderItemDto;
 import com.java.ecommerce.exceptions.InvalidOrderException;
 import com.java.ecommerce.models.Order;
+import com.java.ecommerce.models.OrderItem;
+import com.java.ecommerce.models.Product;
 import com.java.ecommerce.models.User;
 import com.java.ecommerce.repositories.OrderRepository;
 
@@ -21,6 +24,9 @@ public class OrderService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ProductService productService;
 
     public List<OrderDto> getAllOrders() {
         List<Order> orders = orderRepository.findAll();
@@ -51,4 +57,20 @@ public class OrderService {
     public void removeOrder(Order order) {
         this.orderRepository.delete(order);
     }
+
+    // parse list of order item
+    public List<OrderItem> getOrderItems(OrderDto orderDto) {
+        return orderDto.orderItems()
+                .stream()
+                .map(this::getOrderItem)
+                .collect(Collectors.toList());
+
+    }
+
+    // parse ONE order item
+    public OrderItem getOrderItem(OrderItemDto orderItemDto) {
+        Product product = productService.getProductById(orderItemDto.product().getId());
+        return new OrderItem(orderItemDto, product);
+    }
+
 }

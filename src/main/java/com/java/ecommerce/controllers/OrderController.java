@@ -1,11 +1,7 @@
 package com.java.ecommerce.controllers;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 
-import com.java.ecommerce.models.Order;
-import com.java.ecommerce.services.UserService;
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.stream.Collectors;
-
 import com.java.ecommerce.common.ApiResponse;
 import com.java.ecommerce.dto.OrderDto;
-import com.java.ecommerce.dto.OrderItemDto;
-import com.java.ecommerce.dto.ProductDto;
-import com.java.ecommerce.exceptions.InvalidProductException;
-import com.java.ecommerce.models.Category;
+import com.java.ecommerce.models.Order;
 import com.java.ecommerce.models.OrderItem;
-import com.java.ecommerce.models.Product;
 import com.java.ecommerce.models.User;
 import com.java.ecommerce.services.OrderService;
 import com.java.ecommerce.services.ProductService;
+import com.java.ecommerce.services.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -65,7 +56,7 @@ public class OrderController {
     public ResponseEntity<ApiResponse> addProduct(@Valid @RequestBody OrderDto orderDto) {
         User user = userService.getUserById(orderDto.user().getId());
 
-        List<OrderItem> orderItems = this.getOrderItems(orderDto);
+        List<OrderItem> orderItems = orderService.getOrderItems(orderDto);
 
         Order newOrder = new Order(orderItems, user)
                 .calculateAndSetTotalPrice();
@@ -76,28 +67,12 @@ public class OrderController {
                 HttpStatus.CREATED);
     }
 
-    // parse list of order item
-    private List<OrderItem> getOrderItems(OrderDto orderDto) {
-        return orderDto.orderItems()
-                .stream()
-                .map(this::getOrderItem)
-                .collect(Collectors.toList());
-
-    }
-
-    // parse ONE order item
-    private OrderItem getOrderItem(OrderItemDto orderItemDto) {
-        Product product = productService.getProductById(orderItemDto.product().getId());
-        return new OrderItem(orderItemDto, product);
-    }
-
-
     @Operation(summary = "Remove an order", description = "")
     @DeleteMapping("/{orderId}")
-    public ResponseEntity<ApiResponse> removeProduct(@PathVariable("orderId") Integer orderId){
+    public ResponseEntity<ApiResponse> removeProduct(@PathVariable("orderId") Integer orderId) {
         Order productToDelete = orderService.getOrderById(orderId);
         orderService.removeOrder(productToDelete);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Order has been removed"),
-        HttpStatus.OK);
+                HttpStatus.OK);
     }
 }
