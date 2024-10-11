@@ -96,7 +96,7 @@ public class OrderController {
     @DeleteMapping("/{orderId}")
     public ResponseEntity<ApiResponse> removeProduct(@PathVariable("orderId") Integer orderId){
         Order productToDelete = orderService.getOrderById(orderId);
-        orderService.deleteOrder(productToDelete);
+        orderService.removeOrder(productToDelete);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Order has been removed"),
         HttpStatus.OK);
     }
