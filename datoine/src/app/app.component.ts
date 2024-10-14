@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from "./core/layout/footer/footer.component";
+import { HeaderComponent } from './core/layout/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,9 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    HeaderComponent
-  ],
+    HeaderComponent,
+    FooterComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
