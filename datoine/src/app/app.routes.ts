@@ -6,7 +6,8 @@ import { CartComponent } from './cart/cart.component';
 
 export const routes: Routes = [
     { path: 'product', component: ProductDisplayComponent },
-    { path: 'auth', component: AuthPageComponent },
+    { path: 'auth/signin', component: AuthPageComponent },
+    { path: 'auth/signup', component: AuthPageComponent },
     { path: 'user', component: UserInfoComponent },
     { path: 'cart', component: CartComponent },
 ];

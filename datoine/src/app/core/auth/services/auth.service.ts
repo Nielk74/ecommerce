@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+import { Credentials } from '../models/crendentials.model';
 import { User } from '../user.model';
 import { JwtService } from './jwt.service';
-import { Router } from '@angular/router';
-import { Credentials } from '../models/crendentials.model';
-import { LoginResponse } from '../models/login-response.model';
 
 @Injectable({
   providedIn: 'root',
