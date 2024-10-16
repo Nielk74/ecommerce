@@ -1,16 +1,18 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../core/auth/services/auth.service';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Credentials } from '../core/auth/models/crendentials.model';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthService } from '../core/auth/services/auth.service';
 
 @Component({
   selector: 'app-auth-page',
   standalone: true,
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss',
-  imports: [FormsModule],
+  imports: [FormsModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive],
 })
 export class AuthPageComponent implements OnInit {
   authService = inject(AuthService);
