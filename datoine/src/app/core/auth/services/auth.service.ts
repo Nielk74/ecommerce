@@ -10,12 +10,6 @@ import { JwtService } from './jwt.service';
   providedIn: 'root',
 })
 export class AuthService {
-  setUserFromLocalStorage(): void {
-    const user = this.jwtService.getUser();
-    if (user){
-      this.setAuth(JSON.parse(user));
-    }
-  }
 
   http = inject(HttpClient);
   jwtService = inject(JwtService);
@@ -23,10 +17,15 @@ export class AuthService {
 
 
   private userSignal = signal<User | null>(null);
+  isAuthenticated = computed(() => !!this.userSignal());
 
 
-
-  public isAuthenticated = computed(() => !!this.userSignal());
+  setUserFromLocalStorage(): void {
+    const user = this.jwtService.getUser();
+    if (user){
+      this.setAuth(JSON.parse(user));
+    }
+  }
 
   login(credentials: Credentials): Observable<User> {
     return this.http

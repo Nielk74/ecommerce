@@ -1,13 +1,45 @@
 import { Routes } from '@angular/router';
-import { ProductDisplayComponent } from './product-display/product-display.component';
-import { AuthPageComponent } from './auth-page/auth-page.component';
-import { UserInfoComponent } from './user-info/user-info.component';
-import { CartComponent } from './cart/cart.component';
+import { inject } from '@angular/core';
+import { AuthService } from './core/auth/services/auth.service';
 
 export const routes: Routes = [
-    { path: 'product', component: ProductDisplayComponent },
-    { path: 'auth/signin', component: AuthPageComponent },
-    { path: 'auth/signup', component: AuthPageComponent },
-    { path: 'user', component: UserInfoComponent },
-    { path: 'cart', component: CartComponent },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./product-display/product-display.component').then(
+        (m) => m.ProductDisplayComponent
+      ),
+  },
+  {
+    path: 'auth',
+    children: [
+      {
+        path: 'signin',
+        loadComponent: () =>
+          import('./auth-page/auth-page.component').then(
+            (m) => m.AuthPageComponent
+          ),
+      },
+      {
+        path: 'signup',
+        loadComponent: () =>
+          import('./auth-page/auth-page.component').then(
+            (m) => m.AuthPageComponent
+          ),
+      },
+    ],
+    canActivate: [() => !inject(AuthService).isAuthenticated()],
+  },
+  {
+    path: 'user',
+    loadComponent: () =>
+      import('./user-info/user-info.component').then(
+        (m) => m.UserInfoComponent
+      ),
+  },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./cart/cart.component').then((m) => m.CartComponent),
+  },
 ];
