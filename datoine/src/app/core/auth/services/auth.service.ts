@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.purgeAuth;
+    this.purgeAuth();
     this.router.navigate(['/']);
   }
 }
