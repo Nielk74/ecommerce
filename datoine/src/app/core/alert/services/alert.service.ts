@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { Alert } from '../models/alert.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-
-  constructor() { }
+  alertMessage = signal<Alert | null>(null);
+  constructor() { 
+  }
 }

@@ -1,3 +1,5 @@
-<ngb-alert [dismissible]="true">
-	<strong>Warning!</strong> Better check yourself, you're not looking too good.
+
+@if(alertService.alertMessage()){<ngb-alert [type]="alertService.alertMessage()?.type ?? 'info'">
+	{{alertService.alertMessage()?.message}}
 </ngb-alert>
+}

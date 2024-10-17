@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'app-alert',
@@ -10,5 +11,5 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlertComponent {
-
+  alertService = inject(AlertService);
 }
