@@ -1,1 +1,13 @@
-<p>product-display works!</p>
+<div class="container mt-4">
+    <div class="row">
+      @if (!!$products) {
+        @for (product of $products | async; track product.id) {
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <!-- Your product item component -->
+            <app-product-item [product]="product"></app-product-item>
+          </div>
+        }
+      }
+    </div>
+  </div>
+  

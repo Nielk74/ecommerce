@@ -1,0 +1,21 @@
+<div class="card h-100 border-primary shadow-sm">
+  <!-- Product Image -->
+  <img [src]="product().imageURL" class="card-img-top" alt="{{ product().name }}" />
+
+  <!-- Product Details -->
+  <div class="card-body d-flex flex-column">
+    <!-- Product Name -->
+    <h5 class="card-title">{{ product().name }}</h5>
+
+    <!-- Product Description -->
+    <p class="card-text text-truncate">{{ product().description }}</p>
+
+    <!-- Price -->
+    <h6 class="card-subtitle mb-2 text-muted">{{ product().price | currency }}</h6>
+
+    <!-- Spacer for flex-grow -->
+    <div class="mt-auto">
+      <a href="#" class="btn btn-primary w-100">Buy Now</a>
+    </div>
+  </div>
+</div>

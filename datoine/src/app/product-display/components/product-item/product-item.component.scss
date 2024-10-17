@@ -1,0 +1,28 @@
+.card {
+    border: 1px solid #007bff; /* Bootstrap primary color */
+    border-radius: 0.5rem; /* Rounded corners */
+    transition: transform 0.2s; /* Smooth scaling effect */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+  }
+  
+  .card-img-top {
+    border-top-left-radius: 0.5rem; /* Rounded corners for the image */
+    border-top-right-radius: 0.5rem;
+  }
+  
+  .card-title {
+    font-weight: bold; /* Make the product name bold */
+  }
+  
+  .btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    border: none; /* Remove border */
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darken the button on hover */
+  }
+  
