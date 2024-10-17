@@ -3,6 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from "./core/layout/footer/footer.component";
 import { HeaderComponent } from './core/layout/header/header.component';
+import { AlertComponent } from './core/alert/alert.component';
 import { AuthService } from './core/auth/services/auth.service';
 
 @Component({
@@ -12,7 +13,8 @@ import { AuthService } from './core/auth/services/auth.service';
     CommonModule,
     RouterOutlet,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AlertComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
