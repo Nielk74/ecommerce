@@ -1,0 +1,44 @@
+<!-- Sort Options -->
+
+<div ngbAccordion>
+  <div ngbAccordionItem [collapsed]="false">
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>Sort By</button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div class="list-group list-group-flush">
+        <button
+          class="list-group-item list-group-item-action"
+          (click)="sendSortEvent('price')"
+        >
+          Price
+        </button>
+        <button
+          class="list-group-item list-group-item-action"
+          (click)="sendSortEvent('name')"
+        >
+          Name
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div ngbAccordionItem [collapsed]="true">
+    <h2 ngbAccordionHeader>
+      <button ngbAccordionButton>Category</button>
+    </h2>
+    <div ngbAccordionCollapse>
+      <div class="list-group list-group-flush">
+        @for (category of categories; track category.id) {
+        <button
+          class="list-group-item list-group-item-action"
+          (click)="sendFilterEvent(category)"
+          [class.active]="category.id === selectedCategory?.id"
+        >
+          {{category.categoryName}}
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

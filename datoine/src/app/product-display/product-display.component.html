@@ -1,13 +1,23 @@
 <div class="container mt-4">
-    <div class="row">
-      @if (!!$products) {
-        @for (product of $products | async; track product.id) {
+  <div class="row">
+    <!-- Left Panel for Filters and Sort -->
+    <div class="col-12 col-md-4 col-lg-3 mb-4 ">
+      <app-product-panel (sortEvent)="handleSortEvent($event)" (filterEvent)="handleFilterEvent($event)"></app-product-panel>
+    </div>
+
+    <!-- Right Panel for Product Cards -->
+    <div class="col-12 col-md-8 col-lg-9 row">
+      @let products = (filteredSortedProducts$ | async);
+      @if (!!products) {
+        @for (product of products; track product.id) {
           <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <!-- Your product item component -->
             <app-product-item [product]="product"></app-product-item>
           </div>
         }
       }
+      @else {
+        <p> Loading ..........</p>
+      }
     </div>
   </div>
-  
+</div>

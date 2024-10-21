@@ -1,6 +1,12 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { Credentials } from '../core/auth/models/crendentials.model';
 import { AuthService } from '../core/auth/services/auth.service';
 
@@ -9,10 +15,7 @@ import { AuthService } from '../core/auth/services/auth.service';
   standalone: true,
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss',
-  imports: [FormsModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive],
+  imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive],
 })
 export class AuthPageComponent implements OnInit {
   authService = inject(AuthService);
@@ -31,17 +34,31 @@ export class AuthPageComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.isSubmitting = true;
-    let observable =
-      this.authType === 'signin'
-        ? this.authService.login(form.value as Credentials)
-        : this.authService.register(form.value as Credentials);
 
-    observable.subscribe({
-      next: ()=>void this.router.navigate(["/"]),
-      error: (err)=>{
+    if (this.authType === 'signin') {
+      this.login(form.value as Credentials);
+    } else {
+      this.signup(form.value as Credentials);
+    }
+  }
+
+  private login(credentials: Credentials): void {
+    this.authService.login(credentials).subscribe({
+      next: () => void this.router.navigate(['/']),
+      error: (err) => {
         console.error(err);
         this.isSubmitting = false;
-      }
-    })
+      },
+    });
+  }
+
+  private signup(credentials: Credentials) {
+    this.authService.register(credentials).subscribe({
+      next: () => void this.router.navigate(['/auth/signin']),
+      error: (err) => {
+        console.error(err);
+        this.isSubmitting = false;
+      },
+    });
   }
 }
