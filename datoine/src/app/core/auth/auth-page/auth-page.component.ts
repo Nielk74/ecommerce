@@ -7,8 +7,8 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { Credentials } from '../core/auth/models/crendentials.model';
-import { AuthService } from '../core/auth/services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { Credentials } from '../models/crendentials.model';
 
 @Component({
   selector: 'app-auth-page',

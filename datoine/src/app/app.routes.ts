@@ -6,7 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./product-display/product-display.component').then(
+      import('./features/product-display/product-display.component').then(
         (m) => m.ProductDisplayComponent
       ),
   },
@@ -16,14 +16,14 @@ export const routes: Routes = [
       {
         path: 'signin',
         loadComponent: () =>
-          import('./auth-page/auth-page.component').then(
+          import('./core/auth/auth-page/auth-page.component').then(
             (m) => m.AuthPageComponent
           ),
       },
       {
         path: 'signup',
         loadComponent: () =>
-          import('./auth-page/auth-page.component').then(
+          import('./core/auth/auth-page/auth-page.component').then(
             (m) => m.AuthPageComponent
           ),
       },
@@ -33,13 +33,13 @@ export const routes: Routes = [
   {
     path: 'user',
     loadComponent: () =>
-      import('./user-info/user-info.component').then(
+      import('./features/user-info/user-info.component').then(
         (m) => m.UserInfoComponent
       ),
   },
   {
     path: 'cart',
     loadComponent: () =>
-      import('./cart/cart.component').then((m) => m.CartComponent),
+      import('./features/cart/cart.component').then((m) => m.CartComponent),
   },
 ];
