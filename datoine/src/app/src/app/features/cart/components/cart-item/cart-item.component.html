@@ -1,0 +1,42 @@
+<div class="card mb-3">
+  <div class="row g-0">
+    <!-- Product Info Column -->
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">{{ cartItem().product.name }}</h5>
+        <p class="card-text mb-1">
+          <strong class="text-muted">Price:</strong>
+          <span>{{ cartItem().product.price | currency }}</span>
+        </p>
+        <p class="card-text mb-1">
+          <strong class="text-muted">Quantity:</strong> 
+          <span>{{ cartItem().quantity }}</span>
+        </p>
+      </div>
+    </div>
+    
+    <!-- Buttons Column -->
+    <div class="col-md-2 d-flex align-items-center justify-content-center">
+      <div class="d-flex flex-column gap-2">
+        <button 
+          class="btn btn-primary" 
+          (click)="increaseEvent.emit()">
+          Increase
+        </button>
+        <button
+          class="btn btn-secondary"
+          (click)="decreaseEvent.emit()"
+          [disabled]="cartItem().quantity <= 1"
+        >
+          Decrease
+        </button>
+        <button
+          class="btn btn-danger"
+          (click)="removeEvent.emit()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { inject, Injectable, Signal, signal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Product } from '../models/Product.model';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +12,7 @@ export class ProductService {
   http = inject(HttpClient);
 
   private productsSignal = signal<Product[]>([]);
+  public products = this.productsSignal.asReadonly();
   public products$: Observable<Product[]> = toObservable(this.productsSignal);
 
 

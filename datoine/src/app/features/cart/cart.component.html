@@ -1,3 +1,12 @@
 <div class="container">
-    
+  @for (item of cart.cartItems; track $index) {
+  <app-cart-item
+    [cartItem]="item"
+    (increaseEvent)="cartService.increaseQuantity(item)"
+    (decreaseEvent)="cartService.decreaseQuantity(item)"
+    (removeEvent)="cartService.removeProduct(item.product.id)"
+  ></app-cart-item>
+  }
+
+  <h3>Total: {{cart.total | currency}}</h3>
 </div>
